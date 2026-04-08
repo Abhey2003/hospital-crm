@@ -5,7 +5,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import DoctorDashboard from "./pages/doctor/DoctorDashboard";
 import PatientDashboard from "./pages/patient/PatientDashboard";
 
-import Login from "./pages/Login";
+import Login from "./pages/login";
 import Register from "./pages/Register";
 import Patients from "./pages/admin/Patients";
 import AdminAppointments from "./pages/admin/AdminAppointments";
@@ -28,7 +28,7 @@ function AppContent() {
     location.pathname === "/admin-login";
 
   return (
-    <>
+    <div style={{ width: "100%", overflowX: "hidden" }}>
       {!hideNavbar && <Navbar />}
 
       <Routes>
@@ -100,11 +100,11 @@ function AppContent() {
         {/* ❌ FALLBACK */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
-// 🔥 ROOT
+// 🔥 ROOT APP (IMPORTANT)
 function App() {
   return (
     <BrowserRouter>

@@ -103,55 +103,65 @@ function DoctorDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
+
+      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-5 sm:mb-6 text-gray-800">
         Doctor Dashboard
       </h1>
 
       {appointments.length === 0 && (
-        <p className="text-gray-500">No patients assigned</p>
+        <p className="text-gray-500 text-sm sm:text-base">
+          No patients assigned
+        </p>
       )}
 
-      <div className="grid gap-6">
+      <div className="grid gap-4 sm:gap-6">
         {appointments.map((a) => (
           <div
             key={a.id}
-            className="bg-white p-6 rounded-xl shadow-md border"
+            className="bg-white p-4 sm:p-6 rounded-xl shadow-md border"
           >
             {/* HEADER */}
             <div className="mb-4">
-              <p className="text-lg font-semibold text-blue-600">
+              <p className="text-base sm:text-lg font-semibold text-blue-600 break-all">
                 {a.patientEmail}
               </p>
-              <p className="text-gray-600">Disease: {a.disease}</p>
-              <p className="text-sm text-gray-500">
+              <p className="text-gray-600 text-sm sm:text-base">
+                Disease: {a.disease}
+              </p>
+              <p className="text-xs sm:text-sm text-gray-500">
                 Status: {a.status}
               </p>
             </div>
 
             {/* MEDICINES */}
             <div className="mb-4">
-              <h3 className="font-semibold mb-2">Medicines</h3>
+              <h3 className="font-semibold mb-2 text-sm sm:text-base">
+                Medicines
+              </h3>
 
               <button
                 onClick={() => addMedicineRow(a.id)}
-                className="bg-blue-500 text-white px-3 py-1 rounded mb-3 hover:bg-blue-600"
+                className="bg-blue-500 text-white px-3 py-1 rounded mb-3 text-sm hover:bg-blue-600"
               >
                 + Add Medicine
               </button>
 
               {(medicineInputs[a.id]?.medicines || []).map((med, index) => (
-                <div key={index} className="grid grid-cols-4 gap-2 mb-2">
+                <div
+                  key={index}
+                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mb-2"
+                >
                   <input
                     placeholder="Name"
-                    className="border p-2 rounded"
+                    className="border p-2 rounded text-sm"
                     onChange={(e) =>
                       handleMedicineChange(a.id, index, "name", e.target.value)
                     }
                   />
 
                   <select
-                    className="border p-2 rounded"
+                    className="border p-2 rounded text-sm"
                     onChange={(e) =>
                       handleMedicineChange(a.id, index, "dose", e.target.value)
                     }
@@ -164,7 +174,7 @@ function DoctorDashboard() {
 
                   <input
                     placeholder="Duration"
-                    className="border p-2 rounded"
+                    className="border p-2 rounded text-sm"
                     onChange={(e) =>
                       handleMedicineChange(a.id, index, "duration", e.target.value)
                     }
@@ -172,7 +182,7 @@ function DoctorDashboard() {
 
                   <input
                     placeholder="Timing"
-                    className="border p-2 rounded"
+                    className="border p-2 rounded text-sm"
                     onChange={(e) =>
                       handleMedicineChange(a.id, index, "timing", e.target.value)
                     }
@@ -181,11 +191,11 @@ function DoctorDashboard() {
               ))}
             </div>
 
-            {/* DIET */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            {/* DIET + AVOID */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
               <input
                 placeholder="Diet (what to eat)"
-                className="border p-2 rounded"
+                className="border p-2 rounded text-sm"
                 onChange={(e) =>
                   handleChange(a.id, "diet", e.target.value)
                 }
@@ -193,7 +203,7 @@ function DoctorDashboard() {
 
               <input
                 placeholder="Avoid"
-                className="border p-2 rounded"
+                className="border p-2 rounded text-sm"
                 onChange={(e) =>
                   handleChange(a.id, "avoid", e.target.value)
                 }
@@ -203,7 +213,7 @@ function DoctorDashboard() {
             {/* NOTES */}
             <input
               placeholder="Notes"
-              className="border p-2 rounded w-full mb-4"
+              className="border p-2 rounded w-full mb-3 text-sm"
               onChange={(e) =>
                 handleChange(a.id, "notes", e.target.value)
               }
@@ -212,7 +222,7 @@ function DoctorDashboard() {
             {/* PROGRESS */}
             <input
               placeholder="Progress"
-              className="border p-2 rounded w-full mb-4"
+              className="border p-2 rounded w-full mb-4 text-sm"
               onChange={(e) =>
                 handleChange(a.id, "progress", e.target.value)
               }
@@ -221,7 +231,7 @@ function DoctorDashboard() {
             {/* SAVE BUTTON */}
             <button
               onClick={() => handleSave(a.id)}
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              className="w-full sm:w-auto bg-green-500 text-white px-4 py-2 rounded text-sm sm:text-base hover:bg-green-600"
             >
               Save & Send to Patient
             </button>

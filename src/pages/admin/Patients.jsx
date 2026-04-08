@@ -59,7 +59,11 @@ function Patients() {
   };
 
   const handleEdit = (patient) => {
-    setForm(patient);
+    setForm({
+      name: patient.name,
+      age: patient.age,
+      disease: patient.disease
+    });
     setEditId(patient.id);
   };
 
@@ -68,24 +72,24 @@ function Patients() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
 
       {/* HEADER */}
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-5 sm:mb-6">
         Patients Management
       </h1>
 
       {/* FORM CARD */}
-      <div className="bg-white p-6 rounded-xl shadow-md mb-6">
+      <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md mb-5 sm:mb-6">
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
           
           <input
             name="name"
             placeholder="Name"
             value={form.name}
             onChange={handleChange}
-            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border p-2.5 sm:p-3 rounded text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
@@ -93,7 +97,7 @@ function Patients() {
             placeholder="Age"
             value={form.age}
             onChange={handleChange}
-            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border p-2.5 sm:p-3 rounded text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
@@ -101,25 +105,24 @@ function Patients() {
             placeholder="Disease"
             value={form.disease}
             onChange={handleChange}
-            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border p-2.5 sm:p-3 rounded text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
         </div>
 
         <button
           onClick={handleSubmit}
-          className="mt-4 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+          className="mt-4 w-full sm:w-auto bg-blue-500 text-white px-5 py-2.5 rounded text-sm sm:text-base hover:bg-blue-600 transition"
         >
           {editId ? "Update Patient" : "Add Patient"}
         </button>
 
       </div>
 
-      {/* TABLE CARD */}
-      <div className="bg-white p-6 rounded-xl shadow-md overflow-x-auto">
+      {/* DESKTOP TABLE */}
+      <div className="hidden md:block bg-white p-6 rounded-xl shadow-md overflow-x-auto">
         
-        <table className="w-full border-collapse">
-          
+        <table className="w-full border-collapse text-sm sm:text-base">
           <thead>
             <tr className="bg-gray-200 text-left">
               <th className="p-3">Name</th>
@@ -155,10 +158,45 @@ function Patients() {
               </tr>
             ))}
           </tbody>
-
         </table>
 
       </div>
+
+      {/* 📱 MOBILE CARDS */}
+      <div className="md:hidden flex flex-col gap-4">
+        {patients.map((p) => (
+          <div
+            key={p.id}
+            className="bg-white p-4 rounded-xl shadow"
+          >
+            <p className="text-sm text-gray-500">Name</p>
+            <p className="mb-2">{p.name}</p>
+
+            <p className="text-sm text-gray-500">Age</p>
+            <p className="mb-2">{p.age}</p>
+
+            <p className="text-sm text-gray-500">Disease</p>
+            <p className="mb-3">{p.disease}</p>
+
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={() => handleEdit(p)}
+                className="bg-yellow-400 text-white py-2 rounded hover:bg-yellow-500"
+              >
+                Edit
+              </button>
+
+              <button
+                onClick={() => handleDelete(p.id)}
+                className="bg-red-500 text-white py-2 rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }

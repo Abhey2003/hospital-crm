@@ -7,6 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 function Navbar() {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false); // ✅ NEW
 
   const navigate = useNavigate();
 
@@ -35,64 +36,98 @@ function Navbar() {
   };
 
   return (
-    <div className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <div className="bg-white shadow-md px-4 py-3">
       
-      {/* LEFT SIDE */}
-      <div className="flex items-center gap-6">
-        <h1 className="text-xl font-bold text-blue-600">
+      {/* TOP BAR */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-lg md:text-xl font-bold text-blue-600">
           Hospital CRM
         </h1>
 
-        {!user ? (
-          <>
-            <Link className="text-gray-600 hover:text-blue-500" to="/login">
-              Login
-            </Link>
-            <Link className="text-gray-600 hover:text-blue-500" to="/register">
-              Register
-            </Link>
-          </>
-        ) : (
-          <>
-            {/* ADMIN */}
-            {role === "admin" && (
-              <>
-                <Link className="nav-link" to="/admin">Dashboard</Link>
-                <Link className="nav-link" to="/admin/patients">Patients</Link>
-                <Link className="nav-link" to="/admin/appointments">Appointments</Link>
-              </>
-            )}
+        {/* 🍔 HAMBURGER (mobile only) */}
+        <button
+          className="md:hidden text-2xl"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
 
-            {/* DOCTOR */}
-            {role === "doctor" && (
-              <Link className="nav-link" to="/doctor">
-                Doctor Dashboard
-              </Link>
-            )}
+        {/* DESKTOP MENU */}
+        <div className="hidden md:flex items-center gap-6">
+          {!user ? (
+            <>
+              <Link className="nav-link" to="/login">Login</Link>
+              <Link className="nav-link" to="/register">Register</Link>
+            </>
+          ) : (
+            <>
+              {role === "admin" && (
+                <>
+                  <Link className="nav-link" to="/admin">Dashboard</Link>
+                  <Link className="nav-link" to="/admin/patients">Patients</Link>
+                  <Link className="nav-link" to="/admin/appointments">Appointments</Link>
+                </>
+              )}
 
-            {/* PATIENT */}
-            {role === "patient" && (
-              <Link className="nav-link" to="/patient">
-                Patient Dashboard
-              </Link>
-            )}
-          </>
-        )}
+              {role === "doctor" && (
+                <Link className="nav-link" to="/doctor">Doctor Dashboard</Link>
+              )}
+
+              {role === "patient" && (
+                <Link className="nav-link" to="/patient">Patient Dashboard</Link>
+              )}
+
+              <span className="text-gray-600 text-sm truncate max-w-[150px]">
+                {user.email}
+              </span>
+
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-3 py-1 rounded"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
-      {/* RIGHT SIDE */}
-      {user && (
-        <div className="flex items-center gap-4">
-          <span className="text-gray-700 font-medium">
-            {user.email}
-          </span>
+      {/* 📱 MOBILE MENU */}
+      {menuOpen && (
+        <div className="flex flex-col gap-3 mt-4 md:hidden">
+          {!user ? (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </>
+          ) : (
+            <>
+              {role === "admin" && (
+                <>
+                  <Link to="/admin">Dashboard</Link>
+                  <Link to="/admin/patients">Patients</Link>
+                  <Link to="/admin/appointments">Appointments</Link>
+                </>
+              )}
 
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            Logout
-          </button>
+              {role === "doctor" && (
+                <Link to="/doctor">Doctor Dashboard</Link>
+              )}
+
+              {role === "patient" && (
+                <Link to="/patient">Patient Dashboard</Link>
+              )}
+
+              <span className="text-sm break-all">{user.email}</span>
+
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-3 py-2 rounded"
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>

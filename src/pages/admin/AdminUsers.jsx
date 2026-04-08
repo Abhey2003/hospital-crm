@@ -42,15 +42,15 @@ function AdminUsers() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
 
-      <h1 className="text-3xl font-bold mb-6">
+      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-5 sm:mb-6">
         User Management
       </h1>
 
-      <div className="bg-white rounded-xl shadow-md p-6 overflow-x-auto">
-
-        <table className="w-full">
+      {/* DESKTOP TABLE */}
+      <div className="hidden md:block bg-white rounded-xl shadow-md p-6 overflow-x-auto">
+        <table className="w-full text-sm sm:text-base">
           <thead>
             <tr className="bg-gray-200 text-left">
               <th className="p-3">Email</th>
@@ -63,8 +63,7 @@ function AdminUsers() {
           <tbody>
             {users.map((u) => (
               <tr key={u.id} className="border-t hover:bg-gray-50">
-
-                <td className="p-3">{u.email}</td>
+                <td className="p-3 break-all">{u.email}</td>
 
                 <td className="p-3 font-semibold">{u.role}</td>
 
@@ -93,13 +92,50 @@ function AdminUsers() {
                     </button>
                   )}
                 </td>
-
               </tr>
             ))}
           </tbody>
         </table>
-
       </div>
+
+      {/* 📱 MOBILE CARD VIEW */}
+      <div className="md:hidden flex flex-col gap-4">
+        {users.map((u) => (
+          <div
+            key={u.id}
+            className="bg-white p-4 rounded-xl shadow"
+          >
+            <p className="text-sm text-gray-500">Email</p>
+            <p className="break-all mb-2">{u.email}</p>
+
+            <p className="text-sm text-gray-500">Role</p>
+            <p className="font-semibold mb-2">{u.role}</p>
+
+            {u.role !== "admin" && (
+              <>
+                <select
+                  value={u.role}
+                  onChange={(e) =>
+                    handleRoleChange(u.id, e.target.value)
+                  }
+                  className="w-full border p-2 rounded mb-2"
+                >
+                  <option value="doctor">Doctor</option>
+                  <option value="patient">Patient</option>
+                </select>
+
+                <button
+                  onClick={() => handleDelete(u.id, u.role)}
+                  className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }

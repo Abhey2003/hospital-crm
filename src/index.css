@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 🔥 GLOBAL RESET + RESPONSIVENESS FIX */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ✅ Prevent horizontal scroll on mobile */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ✅ Better font rendering */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+  background-color: #f9fafb; /* light gray */
+}
+
+/* 🔥 Utility class for reusable containers */
+.container-custom {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 16px;
+}
+
+/* 🔥 Navbar links (since you used nav-link class) */
+.nav-link {
+  color: #4b5563; /* gray-600 */
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #2563eb; /* blue-600 */
+}
+
+/* 🔥 Fix images/videos responsiveness */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 🔥 Buttons responsive feel */
+button {
+  cursor: pointer;
+}
+
+/* 🔥 Scrollbar (optional styling) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}

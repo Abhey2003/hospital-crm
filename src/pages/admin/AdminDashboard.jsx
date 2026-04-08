@@ -11,7 +11,6 @@ function AdminDashboard() {
   });
 
   useEffect(() => {
-    // 👥 USERS
     const unsubscribeUsers = onSnapshot(collection(db, "users"), (snapshot) => {
       const users = snapshot.docs.map((doc) => doc.data());
 
@@ -25,7 +24,6 @@ function AdminDashboard() {
       }));
     });
 
-    // 📅 APPOINTMENTS
     const unsubscribeAppointments = onSnapshot(
       collection(db, "appointments"),
       (snapshot) => {
@@ -44,31 +42,36 @@ function AdminDashboard() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      
+
+      {/* SIDEBAR */}
       <Sidebar />
 
-      <div className="flex-1 p-6">
+      {/* MAIN CONTENT */}
+      <div className="flex-1 p-4 sm:p-6">
         
-        <h1 className="text-3xl font-bold mb-6">
-          Admin Dashboard
-        </h1>
+        <div className="max-w-6xl mx-auto">
 
-        {/* CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h2 className="text-gray-600">Patients</h2>
-            <p className="text-2xl font-bold">{stats.patients}</p>
-          </div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
+            Admin Dashboard
+          </h1>
 
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h2 className="text-gray-600">Doctors</h2>
-            <p className="text-2xl font-bold">{stats.doctors}</p>
-          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+            
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow">
+              <h2 className="text-gray-600">Patients</h2>
+              <p className="text-2xl font-bold">{stats.patients}</p>
+            </div>
 
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h2 className="text-gray-600">Appointments</h2>
-            <p className="text-2xl font-bold">{stats.appointments}</p>
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow">
+              <h2 className="text-gray-600">Doctors</h2>
+              <p className="text-2xl font-bold">{stats.doctors}</p>
+            </div>
+
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow">
+              <h2 className="text-gray-600">Appointments</h2>
+              <p className="text-2xl font-bold">{stats.appointments}</p>
+            </div>
+
           </div>
 
         </div>

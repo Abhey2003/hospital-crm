@@ -82,26 +82,27 @@ function AdminAppointments() {
     }
   };
 
+  // 🔥 RESPONSIVE LOADING
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen text-gray-600">
+      <div className="flex justify-center items-center h-screen text-gray-600 text-sm sm:text-base">
         Loading users...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6">
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center px-4 py-6 sm:p-6">
       
       {/* CARD */}
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-lg">
+      <div className="bg-white p-5 sm:p-8 rounded-xl shadow-md w-full max-w-md sm:max-w-lg">
         
-        <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
+        <h2 className="text-xl sm:text-2xl font-bold text-blue-600 mb-5 sm:mb-6 text-center">
           OPD - Assign Doctor
         </h2>
 
         {/* PATIENT */}
-        <label className="block mb-2 font-medium text-gray-700">
+        <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium text-gray-700">
           Select Patient
         </label>
         <select
@@ -109,7 +110,7 @@ function AdminAppointments() {
           onChange={(e) =>
             setForm({ ...form, patientId: e.target.value })
           }
-          className="w-full border p-3 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border p-2.5 sm:p-3 rounded mb-3 sm:mb-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           <option value="">Select Patient</option>
 
@@ -125,7 +126,7 @@ function AdminAppointments() {
         </select>
 
         {/* DOCTOR */}
-        <label className="block mb-2 font-medium text-gray-700">
+        <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium text-gray-700">
           Select Doctor
         </label>
         <select
@@ -133,7 +134,7 @@ function AdminAppointments() {
           onChange={(e) =>
             setForm({ ...form, doctorId: e.target.value })
           }
-          className="w-full border p-3 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border p-2.5 sm:p-3 rounded mb-3 sm:mb-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           <option value="">Select Doctor</option>
 
@@ -149,7 +150,7 @@ function AdminAppointments() {
         </select>
 
         {/* DISEASE */}
-        <label className="block mb-2 font-medium text-gray-700">
+        <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium text-gray-700">
           Disease
         </label>
         <input
@@ -158,13 +159,13 @@ function AdminAppointments() {
           onChange={(e) =>
             setForm({ ...form, disease: e.target.value })
           }
-          className="w-full border p-3 rounded mb-6 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border p-2.5 sm:p-3 rounded mb-5 sm:mb-6 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
         {/* BUTTON */}
         <button
           onClick={handleAssign}
-          className="w-full bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition"
+          className="w-full bg-blue-500 text-white py-2.5 sm:py-3 rounded text-sm sm:text-base hover:bg-blue-600 transition"
         >
           Assign Doctor
         </button>
