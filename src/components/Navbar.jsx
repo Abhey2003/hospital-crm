@@ -39,24 +39,24 @@ function Navbar() {
   return (
     <div className="bg-white shadow-md px-4 py-3 relative">
 
-      {/* 🔥 TOP BAR */}
+      {/* 🔝 TOP BAR */}
       <div className="flex justify-between items-center">
-        
+
         {/* LOGO */}
-        <h1 className="text-lg font-bold text-blue-600 truncate">
+        <h1 className="text-lg sm:text-xl font-bold text-blue-600 truncate">
           Hospital CRM
         </h1>
 
-        {/* 🍔 BUTTON (ONLY THING ON MOBILE) */}
+        {/* 🍔 MOBILE BUTTON */}
         <button
-          className="md:hidden text-2xl"
+          className="lg:hidden text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           ☰
         </button>
 
-        {/* 💻 DESKTOP MENU ONLY */}
-        <div className="hidden md:flex items-center gap-6">
+        {/* 💻 DESKTOP MENU */}
+        <div className="hidden lg:flex items-center gap-6">
           {!user ? (
             <>
               <Link to="/login">Login</Link>
@@ -95,10 +95,10 @@ function Navbar() {
         </div>
       </div>
 
-      {/* 📱 FULL DROPDOWN MENU */}
+      {/* 📱 MOBILE DROPDOWN MENU */}
       {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-lg border-t z-50 p-4 flex flex-col gap-3 md:hidden">
-          
+        <div className="absolute top-full left-0 w-full bg-white shadow-lg border-t z-50 p-4 flex flex-col gap-3 lg:hidden">
+
           {!user ? (
             <>
               <Link onClick={() => setMenuOpen(false)} to="/login">Login</Link>
