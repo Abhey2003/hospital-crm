@@ -7,7 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 function Navbar() {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false); // ✅ NEW
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,18 +33,20 @@ function Navbar() {
   const handleLogout = async () => {
     await signOut(auth);
     navigate("/login");
+    setMenuOpen(false); // ✅ close menu
   };
 
   return (
-    <div className="bg-white shadow-md px-4 py-3">
+    <div className="bg-white shadow-md px-4 py-3 relative">
       
       {/* TOP BAR */}
       <div className="flex justify-between items-center">
-        <h1 className="text-lg md:text-xl font-bold text-blue-600">
+        
+        <h1 className="text-lg sm:text-xl font-bold text-blue-600 truncate">
           Hospital CRM
         </h1>
 
-        {/* 🍔 HAMBURGER (mobile only) */}
+        {/* 🍔 BUTTON */}
         <button
           className="md:hidden text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -52,8 +54,8 @@ function Navbar() {
           ☰
         </button>
 
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-6">
+        {/* 💻 DESKTOP MENU */}
+        <div className="hidden md:flex items-center gap-6 overflow-hidden">
           {!user ? (
             <>
               <Link className="nav-link" to="/login">Login</Link>
@@ -77,7 +79,7 @@ function Navbar() {
                 <Link className="nav-link" to="/patient">Patient Dashboard</Link>
               )}
 
-              <span className="text-gray-600 text-sm truncate max-w-[150px]">
+              <span className="text-gray-600 text-sm truncate max-w-[120px]">
                 {user.email}
               </span>
 
@@ -92,33 +94,36 @@ function Navbar() {
         </div>
       </div>
 
-      {/* 📱 MOBILE MENU */}
+      {/* 📱 MOBILE MENU (FULL WIDTH DROPDOWN) */}
       {menuOpen && (
-        <div className="flex flex-col gap-3 mt-4 md:hidden">
+        <div className="absolute left-0 top-full w-full bg-white shadow-md border-t p-4 flex flex-col gap-3 md:hidden z-50">
+          
           {!user ? (
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
+              <Link onClick={() => setMenuOpen(false)} to="/login">Login</Link>
+              <Link onClick={() => setMenuOpen(false)} to="/register">Register</Link>
             </>
           ) : (
             <>
               {role === "admin" && (
                 <>
-                  <Link to="/admin">Dashboard</Link>
-                  <Link to="/admin/patients">Patients</Link>
-                  <Link to="/admin/appointments">Appointments</Link>
+                  <Link onClick={() => setMenuOpen(false)} to="/admin">Dashboard</Link>
+                  <Link onClick={() => setMenuOpen(false)} to="/admin/patients">Patients</Link>
+                  <Link onClick={() => setMenuOpen(false)} to="/admin/appointments">Appointments</Link>
                 </>
               )}
 
               {role === "doctor" && (
-                <Link to="/doctor">Doctor Dashboard</Link>
+                <Link onClick={() => setMenuOpen(false)} to="/doctor">Doctor Dashboard</Link>
               )}
 
               {role === "patient" && (
-                <Link to="/patient">Patient Dashboard</Link>
+                <Link onClick={() => setMenuOpen(false)} to="/patient">Patient Dashboard</Link>
               )}
 
-              <span className="text-sm break-all">{user.email}</span>
+              <span className="text-sm break-all text-gray-600">
+                {user.email}
+              </span>
 
               <button
                 onClick={handleLogout}
