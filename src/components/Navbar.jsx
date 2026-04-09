@@ -33,20 +33,21 @@ function Navbar() {
   const handleLogout = async () => {
     await signOut(auth);
     navigate("/login");
-    setMenuOpen(false); // ✅ close menu
+    setMenuOpen(false);
   };
 
   return (
     <div className="bg-white shadow-md px-4 py-3 relative">
-      
-      {/* TOP BAR */}
+
+      {/* 🔥 TOP BAR */}
       <div className="flex justify-between items-center">
         
-        <h1 className="text-lg sm:text-xl font-bold text-blue-600 truncate">
+        {/* LOGO */}
+        <h1 className="text-lg font-bold text-blue-600 truncate">
           Hospital CRM
         </h1>
 
-        {/* 🍔 BUTTON */}
+        {/* 🍔 BUTTON (ONLY THING ON MOBILE) */}
         <button
           className="md:hidden text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -54,32 +55,32 @@ function Navbar() {
           ☰
         </button>
 
-        {/* 💻 DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-6 overflow-hidden">
+        {/* 💻 DESKTOP MENU ONLY */}
+        <div className="hidden md:flex items-center gap-6">
           {!user ? (
             <>
-              <Link className="nav-link" to="/login">Login</Link>
-              <Link className="nav-link" to="/register">Register</Link>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
             </>
           ) : (
             <>
               {role === "admin" && (
                 <>
-                  <Link className="nav-link" to="/admin">Dashboard</Link>
-                  <Link className="nav-link" to="/admin/patients">Patients</Link>
-                  <Link className="nav-link" to="/admin/appointments">Appointments</Link>
+                  <Link to="/admin">Dashboard</Link>
+                  <Link to="/admin/patients">Patients</Link>
+                  <Link to="/admin/appointments">Appointments</Link>
                 </>
               )}
 
               {role === "doctor" && (
-                <Link className="nav-link" to="/doctor">Doctor Dashboard</Link>
+                <Link to="/doctor">Doctor Dashboard</Link>
               )}
 
               {role === "patient" && (
-                <Link className="nav-link" to="/patient">Patient Dashboard</Link>
+                <Link to="/patient">Patient Dashboard</Link>
               )}
 
-              <span className="text-gray-600 text-sm truncate max-w-[120px]">
+              <span className="text-sm text-gray-600 truncate max-w-[120px]">
                 {user.email}
               </span>
 
@@ -94,9 +95,9 @@ function Navbar() {
         </div>
       </div>
 
-      {/* 📱 MOBILE MENU (FULL WIDTH DROPDOWN) */}
+      {/* 📱 FULL DROPDOWN MENU */}
       {menuOpen && (
-        <div className="absolute left-0 top-full w-full bg-white shadow-md border-t p-4 flex flex-col gap-3 md:hidden z-50">
+        <div className="absolute top-full left-0 w-full bg-white shadow-lg border-t z-50 p-4 flex flex-col gap-3 md:hidden">
           
           {!user ? (
             <>
@@ -121,7 +122,7 @@ function Navbar() {
                 <Link onClick={() => setMenuOpen(false)} to="/patient">Patient Dashboard</Link>
               )}
 
-              <span className="text-sm break-all text-gray-600">
+              <span className="text-sm text-gray-600 break-all">
                 {user.email}
               </span>
 
